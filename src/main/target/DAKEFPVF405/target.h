@@ -72,6 +72,11 @@
 #define BMI270_SPI_BUS          BUS_SPI1
 #define BMI270_CS_PIN           PA4
 
+#define USE_IMU_ICM42688P
+#define IMU_ICM42688P_ALIGN     CW90_DEG
+#define ICM42688P_CS_PIN        PA4
+#define ICM42688P_SPI_BUS       BUS_SPI1
+
 //Baro 
 #define USE_BARO
 #define USE_BARO_BMP280
@@ -94,6 +99,9 @@
 #define USE_MAX7456
 #define MAX7456_SPI_BUS         BUS_SPI2
 #define MAX7456_CS_PIN          PB12
+
+// CAMERA_CONTROL
+#define CAMERA_CONTROL_PIN      PA8
 
 // Serial ports
 #define USE_VCP
@@ -171,3 +179,5 @@
 #define USE_PINIOBOX
 #define PINIO1_PIN                  PC5
 #define PINIO1_FLAGS                PINIO_FLAGS_INVERTED
+#define PINIO2_PIN                  PB4
+#define PINIO2_FLAGS                PINIO_FLAGS_INVERTED
