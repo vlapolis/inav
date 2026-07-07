@@ -427,13 +427,6 @@ def writeTargetH(folder, map):
             file.write("#define %s_SPI_BUS BUS_%s\n" % (supportedgyro, map['defines']['GYRO_1_SPI_INSTANCE']))
             file.write("#define IMU_%s_ALIGN    %s\n" % (supportedgyro, getGyroAlign(map)))
 
-    # Chips Betaflight supports that INAV has no driver for yet -- warn rather than
-    # silently drop, so whoever runs this doesn't ship a target missing a gyro option.
-    for unsupportedgyro in ['LSM6DSV16X', 'LSM6DSK320X']:
-        for var in ['USE_ACCGYRO_', 'USE_ACC_', 'USE_ACC_SPI', 'USE_GYRO_', 'USE_GYRO_SPI_']:
-            if (var + unsupportedgyro) in map['empty_defines']:
-                print("WARNING: Betaflight config lists %s, but INAV has no driver for it yet. Not added to target.h -- flag this as a separate driver project." % (unsupportedgyro), file=sys.stderr)
-                break
 
     if 'USE_BARO' in map['empty_defines']:
         #print ("BARO")
