@@ -1,0 +1,39 @@
+name: Build Custom Target
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: 'INAV target name'
+        required: true
+        default: 'SPEEDYBEEF405V3'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ninja-build cmake
+
+      - name: Configure CMake
+        run: |
+          mkdir -p build
+          cd build
+          cmake -DCMAKE_BUILD_TYPE=Release -G Ninja ..
+
+      - name: Build target
+        run: |
+          cd build
+          ninja ${{ github.event.inputs.target }}
+
+      - name: Upload firmware artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: inav-${{ github.event.inputs.target }}
+          path: build/*.hex
+          retention-days: 14
